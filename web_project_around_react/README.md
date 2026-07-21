@@ -1,16 +1,34 @@
-# React + Vite
+# Around USA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
 
-Currently, two official plugins are available:
+**Around USA** es una aplicación desarrollada con **React** y **Vite** que muestra el perfil de un usuario junto con una galería de publicaciones.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este proyecto corresponde a la primera fase del desarrollo, enfocada en la creación de la interfaz y el uso de componentes reutilizables.
 
-## React Compiler
+## Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- JavaScript
+- HTML
+- CSS
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Próximas mejoras
+
+- Conexión con una API.
+- Inicio de sesión y autenticación.
+- Edición del perfil.
+- Agregar y eliminar publicaciones.
+- Dar "Me gusta" a las tarjetas.
+
+## Autor
+
+Desarrollado por **Flavio Sandoval**.
