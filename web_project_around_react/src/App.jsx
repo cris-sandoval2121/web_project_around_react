@@ -1,14 +1,16 @@
-import Header from './components/Header'
-import Main from './components/Main'
-import Footer from './components/Footer'
+import React from 'react'
+import Header from './components/Header/Header'
+import Main from './components/Main/Main'
+import Footer from './components/Footer/Footer'
 
 function App() {
   return (
     <div className="page">
       <div className="page__content">
-        <Header />
-        <Main />
-        <Footer />
+        <Header/>
+        <Main/>
+        <Footer/>
+      
       </div>
     </div>
   )

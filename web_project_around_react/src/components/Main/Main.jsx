@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import avatarImage from '../images/avatar.jpg'
+import avatarImage from '../../images/avatar.jpg'
 import { initialCards, initialProfile } from '../../utils/constants'
 import Card from '../Card/Card'
 import EditAvatar from '../EditAvatar/EditAvatar'
@@ -8,10 +8,8 @@ import NewCard from '../NweCard/NewCard'
 import ImagePopup from '../ImagePopup/ImagePopup'
 
 function Main() {
-  const [profile, setProfile] = useState({
-    ...initialProfile,
-    avatar: avatarImage,
-  })
+  const [profile, setProfile] = useState({...initialProfile, avatar: avatarImage,})
+
   const [cards, setCards] = useState(initialCards)
   const [activePopup, setActivePopup] = useState('')
   const [selectedCard, setSelectedCard] = useState(null)
@@ -170,16 +168,17 @@ function Main() {
         </section>
       </main>
 
-      <ImagePopup
-        title="Editar perfil"
-        isOpen={activePopup === 'edit-profile'}
-        onClose={handleClosePopup}
-      >
-        <EditProfile
-          values={profileFormValues}
-          onChange={handleProfileChange}
-          onSubmit={handleProfileSubmit}
-        />
+      <ImagePopup 
+
+      title="Editar perfil" 
+      isOpen={activePopup === 'edit-profile'} 
+      onClose={handleClosePopup}>
+
+        <EditProfile 
+        values={profileFormValues} 
+        onChange={handleProfileChange} 
+        onSubmit={handleProfileSubmit}/>
+
       </ImagePopup>
 
       <ImagePopup
