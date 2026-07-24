@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import avatarImage from '../images/avatar.jpg'
-import { initialCards, initialProfile } from '../utils/constants'
-import Card from './Card'
-import EditAvatar from './EditAvatar'
-import EditProfile from './EditProfile'
-import NewCard from './NewCard'
-import Popup from './Popup'
+import { initialCards, initialProfile } from '../../utils/constants'
+import Card from '../Card/Card'
+import EditAvatar from '../EditAvatar/EditAvatar'
+import EditProfile from '../EditProfile/EditProfile'
+import NewCard from '../NweCard/NewCard'
+import ImagePopup from '../ImagePopup/ImagePopup'
 
 function Main() {
   const [profile, setProfile] = useState({
@@ -15,13 +15,8 @@ function Main() {
   const [cards, setCards] = useState(initialCards)
   const [activePopup, setActivePopup] = useState('')
   const [selectedCard, setSelectedCard] = useState(null)
-  const [profileFormValues, setProfileFormValues] = useState({
-    name: initialProfile.name,
-    description: initialProfile.description,
-  })
-  const [newCardValues, setNewCardValues] = useState({
-    name: '',
-    link: '',
+  const [profileFormValues, setProfileFormValues] = useState({name: initialProfile.name, description: initialProfile.description,})
+  const [newCardValues, setNewCardValues] = useState({name: '',link: '',
   })
   const [avatarFormValues, setAvatarFormValues] = useState({
     avatar: '',
@@ -175,7 +170,7 @@ function Main() {
         </section>
       </main>
 
-      <Popup
+      <ImagePopup
         title="Editar perfil"
         isOpen={activePopup === 'edit-profile'}
         onClose={handleClosePopup}
@@ -185,9 +180,9 @@ function Main() {
           onChange={handleProfileChange}
           onSubmit={handleProfileSubmit}
         />
-      </Popup>
+      </ImagePopup>
 
-      <Popup
+      <ImagePopup
         title="Nuevo lugar"
         isOpen={activePopup === 'new-card'}
         onClose={handleClosePopup}
@@ -197,9 +192,9 @@ function Main() {
           onChange={handleNewCardChange}
           onSubmit={handleNewCardSubmit}
         />
-      </Popup>
+      </ImagePopup>
 
-      <Popup
+      <ImagePopup
         title="Cambiar foto de perfil"
         isOpen={activePopup === 'edit-avatar'}
         onClose={handleClosePopup}
@@ -209,9 +204,9 @@ function Main() {
           onChange={handleAvatarChange}
           onSubmit={handleAvatarSubmit}
         />
-      </Popup>
+      </ImagePopup>
 
-      <Popup isOpen={activePopup === 'image'} onClose={handleClosePopup}>
+      <ImagePopup isOpen={activePopup === 'image'} onClose={handleClosePopup}>
         {selectedCard ? (
           <>
             <img
@@ -222,7 +217,7 @@ function Main() {
             <p className="popup__caption">{selectedCard.name}</p>
           </>
         ) : null}
-      </Popup>
+      </ImagePopup>
     </>
   )
 }

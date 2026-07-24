@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-function Popup({ title, isOpen, onClose, children }) {
+function ImagePopup({ title, isOpen, onClose, children }) {
   useEffect(() => {
     if (!isOpen) {
       return undefined
@@ -50,4 +50,4 @@ function Popup({ title, isOpen, onClose, children }) {
   )
 }
 
-export default Popup
+export default  ImagePopup
