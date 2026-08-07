@@ -1,17 +1,32 @@
-function NewCard({ values, onChange, onSubmit }) {
+﻿import { useState } from 'react'
+
+function NewCard({ onAddPlaceSubmit }) {
+  const [name, setName] = useState('')
+  const [link, setLink] = useState('')
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    onAddPlaceSubmit({ name, link })
+  }
+
   return (
-    <form className="popup__form" id="new-card-form" noValidate onSubmit={onSubmit}>
+    <form
+      className="popup__form"
+      id="new-card-form"
+      noValidate
+      onSubmit={handleSubmit}
+    >
       <input
         id="card-title"
         className="popup__input popup__input_type_card-name"
         name="name"
-        placeholder="Título"
+        placeholder="Titulo"
         required
         type="text"
         minLength="2"
         maxLength="30"
-        value={values.name}
-        onChange={onChange}
+        value={name}
+        onChange={(event) => setName(event.target.value)}
       />
       <span className="popup__error" id="card-title-error"></span>
 
@@ -22,8 +37,8 @@ function NewCard({ values, onChange, onSubmit }) {
         placeholder="Enlace a la imagen"
         required
         type="url"
-        value={values.link}
-        onChange={onChange}
+        value={link}
+        onChange={(event) => setLink(event.target.value)}
       />
       <span className="popup__error" id="card-url-error"></span>
 

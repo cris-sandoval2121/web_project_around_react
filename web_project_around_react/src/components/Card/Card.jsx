@@ -1,33 +1,57 @@
-import { useState } from 'react'
+﻿import { useContext } from 'react'
+import CurrentUserContext from '../../contexts/CurrentUserContext'
 
-function Card({ name, link, onDelete, onImageClick }) {
-  const [isLiked, setIsLiked] = useState(false)
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+  const { currentUser } = useContext(CurrentUserContext)
+  const isOwn = card.owner?._id === currentUser._id
+  const isLiked =
+    card.likes?.some((like) => like._id === currentUser._id) ?? false
 
-  const likeButtonClassName = `card__like-button${isLiked ? ' card__like-button_is-active' : ''}`
+  const likeButtonClassName = `card__like-button${
+    isLiked ? ' card__like-button_is-active' : ''
+  }`
+
+  const handleCardClick = () => {
+    onCardClick(card)
+  }
+
+  const handleLikeClick = () => {
+    onCardLike(card)
+  }
+
+  const handleDeleteClick = () => {
+    onCardDelete(card)
+  }
 
   return (
     <li className="card">
       <button
         className="card__image-button"
         type="button"
-        aria-label={`Ver ${name}`}
-        onClick={onImageClick}
+        aria-label={`Ver ${card.name}`}
+        onClick={handleCardClick}
       >
-        <img className="card__image" src={link} alt={name} />
+        <img className="card__image" src={card.link} alt={card.name} />
       </button>
-      <button
-        aria-label={`Eliminar tarjeta ${name}`}
-        className="card__delete-button"
-        type="button"
-        onClick={onDelete}
-      ></button>
-      <div className="card__description">
-        <h2 className="card__title">{name}</h2>
+      {isOwn ? (
         <button
-          aria-label={isLiked ? `Quitar me gusta a ${name}` : `Dar me gusta a ${name}`}
+          aria-label={`Eliminar tarjeta ${card.name}`}
+          className="card__delete-button"
+          type="button"
+          onClick={handleDeleteClick}
+        ></button>
+      ) : null}
+      <div className="card__description">
+        <h2 className="card__title">{card.name}</h2>
+        <button
+          aria-label={
+            isLiked
+              ? `Quitar me gusta a ${card.name}`
+              : `Dar me gusta a ${card.name}`
+          }
           className={likeButtonClassName}
           type="button"
-          onClick={() => setIsLiked((currentValue) => !currentValue)}
+          onClick={handleLikeClick}
         ></button>
       </div>
     </li>

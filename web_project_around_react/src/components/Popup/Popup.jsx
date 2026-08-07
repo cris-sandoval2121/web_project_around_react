@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-function ImagePopup({ title, isOpen, onClose, children }) {
+function Popup({ title, isOpen, onClose, children, isImage }) {
   useEffect(() => {
     if (!isOpen) {
       return undefined
@@ -20,7 +20,9 @@ function ImagePopup({ title, isOpen, onClose, children }) {
   }, [isOpen, onClose])
 
   const popupClassName = `popup${isOpen ? ' popup_is-opened' : ''}`
-  const contentClassName = title? 'popup__content': 'popup__content popup__content_content_image'
+  const contentClassName = isImage
+    ? 'popup__content popup__content_content_image'
+    : 'popup__content'
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
@@ -48,4 +50,4 @@ function ImagePopup({ title, isOpen, onClose, children }) {
   )
 }
 
-export default ImagePopup
+export default Popup
