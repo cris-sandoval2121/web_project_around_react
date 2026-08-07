@@ -1,15 +1,10 @@
-﻿import { useContext, useEffect, useState } from 'react'
+﻿import { useContext, useState } from 'react'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 
 function EditProfile() {
   const { currentUser, handleUpdateUser } = useContext(CurrentUserContext)
   const [name, setName] = useState(currentUser.name || '')
   const [description, setDescription] = useState(currentUser.about || '')
-
-  useEffect(() => {
-    setName(currentUser.name || '')
-    setDescription(currentUser.about || '')
-  }, [currentUser])
 
   const handleSubmit = (event) => {
     event.preventDefault()
