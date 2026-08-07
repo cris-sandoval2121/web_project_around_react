@@ -1,6 +1,12 @@
 ﻿import { useContext } from 'react'
 import avatarImage from '../../images/avatar.jpg'
 import Card from '../Card/Card'
+import Popup from '../Popup/Popup'
+import EditProfile from '../EditProfile/EditProfile'
+import EditAvatar from '../EditAvatar/EditAvatar'
+import NewCard from '../NewCard/NewCard'
+import RemoveCard from '../RemoveCard/RemoveCard'
+import ImagePopup from '../ImagePopup/ImagePopup'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 
 function Main({
@@ -11,6 +17,11 @@ function Main({
   onEditAvatarClick,
   onEditProfileClick,
   onAddPlaceClick,
+  activePopup,
+  selectedCard,
+  onClosePopup,
+  onAddPlaceSubmit,
+  onConfirmDeleteCard,
 }) {
   const { currentUser } = useContext(CurrentUserContext)
   const profileName = currentUser.name || ''
@@ -63,6 +74,56 @@ function Main({
           ))}
         </ul>
       </section>
+
+      <Popup
+        title="Editar perfil"
+        isOpen={activePopup === 'edit-profile'}
+        onClose={onClosePopup}
+      >
+        <EditProfile
+          key={`${selectedCard?._id || 'guest'}-${activePopup === 'edit-profile'}`}
+        />
+      </Popup>
+
+      <Popup
+        title="Nuevo lugar"
+        isOpen={activePopup === 'new-card'}
+        onClose={onClosePopup}
+      >
+        <NewCard
+          key={activePopup === 'new-card' ? 'new-card-open' : 'new-card-closed'}
+          onAddPlaceSubmit={onAddPlaceSubmit}
+        />
+      </Popup>
+
+      <Popup
+        title="Cambiar foto de perfil"
+        isOpen={activePopup === 'edit-avatar'}
+        onClose={onClosePopup}
+      >
+        <EditAvatar isOpen={activePopup === 'edit-avatar'} />
+      </Popup>
+
+      <Popup
+        title="Eliminar tarjeta"
+        isOpen={activePopup === 'confirm-delete'}
+        onClose={onClosePopup}
+      >
+        <RemoveCard onDeleteConfirm={onConfirmDeleteCard} />
+      </Popup>
+
+      <ImagePopup isOpen={activePopup === 'image'} onClose={onClosePopup}>
+        {selectedCard ? (
+          <>
+            <img
+              alt={selectedCard.name}
+              className="popup__image"
+              src={selectedCard.link}
+            />
+            <p className="popup__caption">{selectedCard.name}</p>
+          </>
+        ) : null}
+      </ImagePopup>
     </main>
   )
 }

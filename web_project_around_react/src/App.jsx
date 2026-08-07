@@ -1,9 +1,15 @@
 ﻿import { useEffect, useState } from 'react'
-import Header from './Header/Header'
-import Main from './Main/Main'
-import Footer from './Footer/Footer'
-import api from '../utils/api'
-import CurrentUserContext from '../contexts/CurrentUserContext'
+import Header from './components/Header/Header'
+import Main from './components/Main/Main'
+import Footer from './components/Footer/Footer'
+import EditProfile from './components/EditProfile/EditProfile'
+import EditAvatar from './components/EditAvatar/EditAvatar'
+import NewCard from './components/NewCard/NewCard'
+import Popup from './components/Popup/Popup'
+import ImagePopup from './components/ImagePopup/ImagePopup'
+import RemoveCard from './components/RemoveCard/RemoveCard'
+import api from './utils/api'
+import CurrentUserContext from './contexts/CurrentUserContext'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
@@ -113,13 +119,58 @@ function App() {
             onEditAvatarClick={() => handleOpenPopup('edit-avatar')}
             onEditProfileClick={() => handleOpenPopup('edit-profile')}
             onAddPlaceClick={() => handleOpenPopup('new-card')}
-            activePopup={activePopup}
-            selectedCard={selectedCard}
-            onClosePopup={handleClosePopup}
-            onAddPlaceSubmit={handleAddPlaceSubmit}
-            onConfirmDeleteCard={handleConfirmDeleteCard}
           />
           <Footer />
+
+          <Popup
+            title="Editar perfil"
+            isOpen={activePopup === 'edit-profile'}
+            onClose={handleClosePopup}
+          >
+            <EditProfile
+              key={`${currentUser._id || 'guest'}-${activePopup === 'edit-profile'}`}
+            />
+          </Popup>
+
+          <Popup
+            title="Nuevo lugar"
+            isOpen={activePopup === 'new-card'}
+            onClose={handleClosePopup}
+          >
+            <NewCard
+              key={activePopup === 'new-card' ? 'new-card-open' : 'new-card-closed'}
+              onAddPlaceSubmit={handleAddPlaceSubmit}
+            />
+          </Popup>
+
+          <Popup
+            title="Cambiar foto de perfil"
+            isOpen={activePopup === 'edit-avatar'}
+            onClose={handleClosePopup}
+          >
+            <EditAvatar isOpen={activePopup === 'edit-avatar'} />
+          </Popup>
+
+          <Popup
+            title="Eliminar tarjeta"
+            isOpen={activePopup === 'confirm-delete'}
+            onClose={handleClosePopup}
+          >
+            <RemoveCard onDeleteConfirm={handleConfirmDeleteCard} />
+          </Popup>
+
+          <ImagePopup isOpen={activePopup === 'image'} onClose={handleClosePopup}>
+            {selectedCard ? (
+              <>
+                <img
+                  alt={selectedCard.name}
+                  className="popup__image"
+                  src={selectedCard.link}
+                />
+                <p className="popup__caption">{selectedCard.name}</p>
+              </>
+            ) : null}
+          </ImagePopup>
         </div>
       </div>
     </CurrentUserContext.Provider>
