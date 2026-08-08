@@ -3,9 +3,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext'
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const { currentUser } = useContext(CurrentUserContext)
-  const isOwn = card.owner?._id === currentUser._id
-  const isLiked =
-    card.likes?.some((like) => like._id === currentUser._id) ?? false
+  const isLiked = Boolean(card.isLiked)
 
   const likeButtonClassName = `card__like-button${
     isLiked ? ' card__like-button_is-active' : ''
@@ -33,14 +31,14 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
       >
         <img className="card__image" src={card.link} alt={card.name} />
       </button>
-      {isOwn ? (
-        <button
-          aria-label={`Eliminar tarjeta ${card.name}`}
-          className="card__delete-button"
-          type="button"
-          onClick={handleDeleteClick}
-        ></button>
-      ) : null}
+
+      <button
+        aria-label={`Eliminar tarjeta ${card.name}`}
+        className="card__delete-button"
+        type="button"
+        onClick={handleDeleteClick}
+      ></button>
+
       <div className="card__description">
         <h2 className="card__title">{card.name}</h2>
         <button

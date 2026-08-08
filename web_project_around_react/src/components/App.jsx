@@ -33,7 +33,7 @@ function App() {
   }
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((like) => like._id === currentUser._id)
+    const isLiked = Boolean(card.isLiked)
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
